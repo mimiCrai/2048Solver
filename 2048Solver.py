@@ -155,19 +155,27 @@ board = np.array([
     [0, 0, 0, 0]
 ])
 
+print("Welcome to 2048 Solver! \n")
+print("First, enter your desired search depth. The higher the depth, the longer the program will take to run.\n The maximum depth is 5. If you want to do more than 5, do it at your own risk.\n")
+while True:
+    depth = int(input("Enter the search depth (minimum 1): "))
+    if depth >= 1:
+        break
+    else:
+        print("Invalid input. Please enter a depth of at least 1.")
 print("Input the current board state! \n")
 
 for i in range(4):
     for j in range(4):
         while True:
             value = int(input(f"Value of row-{i+1} col-{j+1} (must be 0 or 2^n): "))
-            if value == 0 or (value > 0 and (value & (value - 1)) == 0):
+            if (value == 0 or (value > 0 and (value & (value - 1)) == 0) )and value !=1:
                 board[i][j] = value
                 break
             else:
                 print("Invalid input. Please enter 0 or a power of 2.")
 printboard(board)
 
-best_move = find_best_move(board, depth=3)
+best_move = find_best_move(board, depth)
 print("Best move: ", best_move)
 
